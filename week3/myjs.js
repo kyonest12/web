@@ -6,7 +6,6 @@ kieu = {
     ITEM: 0,
     GROUP: 1,
 }
-
 /* lưu cặp key_value với key = id của group + id của item, value mảng các value tùy chọn của input */
 value_of_input = {
 }
@@ -87,17 +86,25 @@ function changeTypeOfInput(group_id, infovalue) {
     oldListInput = list_input.cloneNode(true);
     infovalue.parentNode.replaceChild(oldListInput, infovalue);
     oldListInput.addEventListener("keydown", function (event) {
+        let maininfo = oldListInput.parentNode;
+        let selectButton = maininfo.getElementsByClassName("fa-solid fa-plus");
         if (event.key === "Enter") {
             var result = confirm(authen +
                 "Chắc chắn muốn chọn input của item này");
             if (result === true) {
-                newInput = create_input(oldListInput.value)
-                if (oldListInput.value !== "text") {
-                    let maininfo = oldListInput.parentNode;
-                    maininfo.appendChild(create_button_add_value_to_input(name_of_info))
+                if (oldListInput.value !== "text" && oldListInput.value !== "date") {
+                    if (selectButton.length === 0) {
+                        maininfo.appendChild(create_button_add_value_to_input(name_of_info))
+                    }
                     type_of_item_input[name_of_info] = create_input(oldListInput.value)
-                    console.log(name_of_info, oldListInput.value)
                 }
+                else {
+                    type_of_item_input[name_of_info] = create_input(oldListInput.value)
+                    if (selectButton.length !== 0) {
+                        selectButton[0].remove()
+                    }
+                }
+                delete(value_of_input[name_of_info])
             }
         }
         oldListInput.parentNode.replaceChild(infovalue, oldListInput);
@@ -110,30 +117,85 @@ function changeTypeOfInput(group_id, infovalue) {
 function create_input_value(group_id, infovalue) {
     var name_of_info = group_id + infovalue.id;
     var newinput = type_of_item_input[name_of_info];
-    console.log(name_of_info, type_of_item_input[name_of_info].type, type_of_item_input[name_of_info])
     if (newinput.type === "text") {
         newinput.placeholder = infovalue.innerText
+        return newinput
+    }
+    if (newinput.type === "date") {
         return newinput
     }
     if (!(name_of_info in value_of_input)) {
         return null
     }
-    if (newinput.type === "ratio") {
-
+    if (newinput.type === "radio" || newinput.type === "checkbox") {
+        let maininput = document.createElement("div")
+        maininput.className = "center"
+        for (let i = 0; i < value_of_input[name_of_info].length; i++) {
+            label = document.createElement("label")
+            label.className = "information_select"
+            input_value = document.createElement("input")
+            input_value.id = "value" + i
+            input_value.value = value_of_input[name_of_info][i]
+            input_value.type = newinput.type
+            label.appendChild(input_value)
+            span = document.createElement("span")
+            span.innerText = value_of_input[name_of_info][i]
+            label.appendChild(span)
+            maininput.appendChild(label)
+        }
+        return maininput
+    }
+    if (newinput.type === "select-one") {
+        let maininput = document.createElement("div")
+        select = document.createElement("select")
+        select.style.width = "300px"
+        maininput.className = "center"
+        for (let i = 0; i < value_of_input[name_of_info].length; i++) {
+            optioni = document.createElement("option")
+            optioni.value = value_of_input[name_of_info][i]
+            optioni.innerText = value_of_input[name_of_info][i]
+            select.appendChild(optioni)
+        }
+        maininput.appendChild(select)
+        return maininput
     }
 
 }
 function changeValue(group_id, infovalue) {
+    var type = type_of_item_input[name_of_info].type
+    if (type === "select-one")
+        type = "select"
     var newinput = create_input_value(group_id, infovalue)
     if (newinput === null) {
         alert(authen + "input này chưa có các giá trị để chọn, click vào button hình dấu cộng để thêm giá trị")
         return
     }
+    //console.log(newinput)
     infovalue.parentNode.replaceChild(newinput, infovalue);
     newinput.addEventListener("keydown", function(event) {
         if (event.key === "Enter") {
-            type_of_item_input[name_of_info].placeholder = newinput.value
-            infovalue.innerText = newinput.value;
+            if (type === "radio") {
+                let checkedRadio = newinput.querySelector('input[type="radio"]:checked');
+                infovalue.innerText = checkedRadio.value;
+            }
+            if (type === "checkbox") {
+                let checkedCheckBox = newinput.querySelectorAll('input[type="checkbox"]');
+                var result = "";
+                checkedCheckBox.forEach(function(checkbox) {
+                    if (checkbox.checked) {
+                        result += checkbox.value + ", "
+                    }
+                });
+                infovalue.innerText = result.slice(0, -1);
+            }
+            if (type === "select") {
+                let selected = newinput.querySelector("select").value;
+                infovalue.innerText = selected
+            }
+            if (type === "text" || type === "date") {
+                type_of_item_input[name_of_info].placeholder = newinput.value
+                infovalue.innerText = newinput.value;
+            }
             newinput.parentNode.replaceChild(infovalue, newinput);
         } else if (event.key === 'Escape') {
             newinput.parentNode.replaceChild(infovalue, newinput);
@@ -215,7 +277,7 @@ function addInfoItem(idgroup) {
 }
 
 function deleteGroupItem(group) {
-    var result = confirm("Lương Hữu Quang Minh _ MSSV: 20200400\n" +
+    var result = confirm(authen +
                         "Bạn có chắc chắn muốn xóa group này?");
     if (result === true) {
         delete list_group_item[group.id]
