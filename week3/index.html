@@ -196,9 +196,12 @@
                     <span class="Title">THÔNG TIN CÁ NHÂN</span>
                     <div class="center">
                         <button class="btn btn-success" id="exportPdfButton" >exportPDF</button>
-                        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+                        <!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
                         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
-                        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+                        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script> -->
+                        <script type="text/javascript" src="jquery.js"></script>
+                        <script type="text/javascript" src="pdfmake.js"></script>
+                        <script type="text/javascript" src="html2canvas.js"></script>
                         <script type="text/javascript">
                             $("body").on("click", "#exportPdfButton", function () {
                                 html2canvas($('#trangthongtin')[0], {
@@ -210,7 +213,7 @@
                                                 width: 500
                                             }]
                                         };
-                                        pdfMake.createPdf(docDefinition).download("cutomer-details.pdf");
+                                        pdfMake.createPdf(docDefinition).download("information.pdf");
                                     }
                                 });
                             });
@@ -229,11 +232,12 @@
                 </div>
             </div>
             <div class="row">
-                    <span class="normalText"><span>
+                    <span class="normalText">
                         <i>Ghi chú:</i>
                     </span>
                     <span> <b> Lương Hữu Quang Minh_MSSV:20200400. Button bên cạnh button delete của mỗi item là button để chỉnh sửa kiểu của input (kiểu mặc
-                        định của input là text) </b> </span>
+                        định của input là text), sau khi chỉnh sửa kiểu, nếu kiểu không phải text thì sẽ có button hình dấu cộng để thêm các value vào input </b>
+                    </span>
             </div>
         </td>
 
