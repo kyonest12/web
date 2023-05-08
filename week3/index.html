@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="./fonts/fontawesome-free-6.4.0/css/all.min.css">
 </head>
 <body>
-<table>
+<table id="trangthongtin">
     <tbody>
     <tr>
         <td style="vertical-align: top; margin:0px;">
@@ -194,6 +194,28 @@
             <div class="MainContentTitle">
                 <div>
                     <span class="Title">THÔNG TIN CÁ NHÂN</span>
+                    <div class="center">
+                        <button class="btn btn-success" id="exportPdfButton" >exportPDF</button>
+                        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+                        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+                        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+                        <script type="text/javascript">
+                            $("body").on("click", "#exportPdfButton", function () {
+                                html2canvas($('#trangthongtin')[0], {
+                                    onrendered: function (canvas) {
+                                        var data = canvas.toDataURL();
+                                        var docDefinition = {
+                                            content: [{
+                                                image: data,
+                                                width: 500
+                                            }]
+                                        };
+                                        pdfMake.createPdf(docDefinition).download("cutomer-details.pdf");
+                                    }
+                                });
+                            });
+                        </script>
+                    </div>
                 </div>
                 <hr>
             </div>
@@ -220,6 +242,5 @@
     </tbody>
 </table>
 
-<script src = "myjs.js"></script>
 </body>
 </html>
