@@ -190,7 +190,7 @@
             </div>
         </td>
 
-        <td style="width:100%; vertical-align: top; margin:0px;padding:10px;">
+        <td style="width:100%; vertical-align: top; margin:0px;padding:10px;" id = "convertPdf">
             <div class="MainContentTitle">
                 <div>
                     <span class="Title">THÔNG TIN CÁ NHÂN</span>
@@ -204,7 +204,7 @@
                         <script type="text/javascript" src="html2canvas.js"></script>
                         <script type="text/javascript">
                             $("body").on("click", "#exportPdfButton", function () {
-                                html2canvas($('#trangthongtin')[0], {
+                                html2canvas($('#convertPdf')[0], {
                                     onrendered: function (canvas) {
                                         var data = canvas.toDataURL();
                                         var docDefinition = {
@@ -222,8 +222,8 @@
                 </div>
                 <hr>
             </div>
-            <div class="MainContent" id="MainContent">
-                <div id = "thongtinsinhvien" class = "group">
+            <div class="MainContent row" id="MainContent">
+                <div id = "thongtinsinhvien" class = "group col-md-6">
                     <span class="Title"> THÔNG TIN SINH VIÊN_20200400 </span>
                     <button class = "item_button" onclick="addInfoItem('thongtinsinhvien')"> Add info Item </button>
                     <button class = "item_button" onclick="addGroupItem()"> Add group Item </button>

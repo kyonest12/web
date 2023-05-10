@@ -117,6 +117,7 @@ function changeTypeOfInput(group_id, infovalue) {
 function create_input_value(group_id, infovalue) {
     var name_of_info = group_id + infovalue.id;
     var newinput = type_of_item_input[name_of_info];
+    newinput.className = "main_info"
     if (newinput.type === "text") {
         newinput.placeholder = infovalue.innerText
         return newinput
@@ -162,6 +163,7 @@ function create_input_value(group_id, infovalue) {
 
 }
 function changeValue(group_id, infovalue) {
+    var name_of_info = group_id + infovalue.id;
     var type = type_of_item_input[name_of_info].type
     if (type === "select-one")
         type = "select"
@@ -234,7 +236,7 @@ function deleteInfo(button) {
 }
 function addInfo(group_item, cnt) {
     var maininfo = document.createElement("div");
-    maininfo.className = "center";
+    maininfo.className = "center main_info";
     maininfo.id = "maininfo" + cnt;
     var nameinfo = document.createElement("i");
     nameinfo.className = "normalText";
@@ -290,7 +292,7 @@ function addGroupItem() {
     const name = "group" + group_count
     var group = document.createElement("div")
     group.id = name
-    group.className = "group"
+    group.className = "group col-md-6"
     list_group_item[name] = 0
     var span = document.createElement("span")
     span.className = "Title"
@@ -325,5 +327,4 @@ function addGroupItem() {
     })
     const mainContent = document.getElementById("MainContent")
     mainContent.appendChild(group)
-    mainContent.appendChild(document.createElement("br"))
 }
