@@ -268,7 +268,9 @@ function addInfo(group_item, cnt) {
         changeTypeOfInput(group_item.parentNode.id, valueinfo)
     })
     button.addEventListener("click", function () {
-        deleteInfo(button)
+        var result = confirm(authen + "chắc chắn muốn xóa item này?")
+        if (result)
+            deleteInfo(button)
     })
     nameinfo.addEventListener("dblclick", function () {
         changeName(nameinfo, 0)
