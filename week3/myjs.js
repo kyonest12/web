@@ -121,7 +121,7 @@ function changeTypeOfInput(group_id, infovalue) {
 function create_input_value(group_id, infovalue) {
     var name_of_info = group_id + infovalue.id;
     var newinput = type_of_item_input[name_of_info];
-    newinput.className = "main_info"
+    newinput.className = "input_type"
     if (newinput.type === "text") {
         newinput.placeholder = infovalue.innerText
         return newinput
@@ -154,7 +154,7 @@ function create_input_value(group_id, infovalue) {
         let maininput = document.createElement("div")
         select = document.createElement("select")
         select.style.width = "300px"
-        maininput.className = "center"
+        maininput.className = ""
         for (let i = 0; i < value_of_input[name_of_info].length; i++) {
             optioni = document.createElement("option")
             optioni.value = value_of_input[name_of_info][i]

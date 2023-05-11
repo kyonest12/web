@@ -761,7 +761,7 @@ hr {
 
 .main_info
 {
-    display: inline-block;
+    display: block;
     padding: 10px 70px 10px 40px;
     margin: 10px 10px 10px 10px;
     width: 100%;
@@ -791,4 +791,14 @@ hr {
 .information_select
 {
     padding: 15px 15px 15px 15px;
+}
+
+input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
 }
