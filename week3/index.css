@@ -756,6 +756,7 @@ hr {
     display: block;
     justify-content: space-between;
     padding: 10px 40px 10px 40px;
+    margin-top: 10px;
 }
 
 .main_info
@@ -770,7 +771,8 @@ hr {
 {
     font-size: 12px;
     color: black;
-    padding: 10px 20px;
+    padding: 5px 5px 5px 5px;
+    margin: 5px 5px 5px 5px;
     border-radius: 10px;
     background-color: white;
 }

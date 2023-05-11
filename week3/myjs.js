@@ -9,7 +9,7 @@ kieu = {
 /* lưu cặp key_value với key = id của group + id của item, value mảng các value tùy chọn của input */
 value_of_input = {
 }
-
+var isInput = false
 // khi không muốn thay đổi input của item đang được chọn nữa thì lưu lại item này và khi sang item mới phải swap lại oldListInput và isChosoenInput
 var isChoosenInput = null
 var oldListInput = null
@@ -73,6 +73,10 @@ function handleClick() {
     return confirm(authen + "Chuyển sang thay đổi input của item này?")
 }
 function changeTypeOfInput(group_id, infovalue) {
+    console.log(isInput)
+    if (isInput === true) {
+        return;
+    }
     name_of_info = group_id + infovalue.id
     if (isChoosenInput !== null) {
         if (handleClick()) {
@@ -173,9 +177,11 @@ function changeValue(group_id, infovalue) {
         return
     }
     //console.log(newinput)
+    isInput = true
     infovalue.parentNode.replaceChild(newinput, infovalue);
     newinput.addEventListener("keydown", function(event) {
         if (event.key === "Enter") {
+            isInput = false
             if (type === "radio") {
                 let checkedRadio = newinput.querySelector('input[type="radio"]:checked');
                 infovalue.innerText = checkedRadio.value;
@@ -200,6 +206,7 @@ function changeValue(group_id, infovalue) {
             }
             newinput.parentNode.replaceChild(infovalue, newinput);
         } else if (event.key === 'Escape') {
+            isInput = false
             newinput.parentNode.replaceChild(infovalue, newinput);
         }
     })
